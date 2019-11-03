@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Info Windows</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      function initMap() {
+		var lat = 25.0177250;
+		var lng = 121.5443387;
+        var point = {lat: lat, lng: lng};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: point
+        });
+
+        var contentString = "<h1>"+lat+", "+lng+"</h1><iframe src='https://stoneapp.tech/iot_test/show.php'></iframe>";
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+          position: point,
+          map: map,
+          title: 'Weather Data'
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=API_KEY_HERE&callback=initMap">
+    </script>
+  </body>
+</html>
